@@ -1,0 +1,23 @@
+{
+  "name": "where-to-watch-the-90s",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Find where any 90s or 2000s movie or TV show is streaming right now. A living replacement for the static streaming-guide PDF.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "node dev-server.js",
+    "mock": "MOCK=1 node dev-server.js",
+    "check": "node --check dev-server.js && for f in api/*.js api/_lib/*.js public/app.js; do node --check \"$f\" || exit 1; done && echo 'all files OK'"
+  },
+  "keywords": [
+    "90s",
+    "nostalgia",
+    "streaming",
+    "tmdb",
+    "justwatch"
+  ],
+  "license": "MIT"
+}
