@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where to Watch the 90s — find any 90s movie or show streaming right now</title>
+<meta name="description" content="Search any 90s or 2000s movie or TV show and see exactly where it's streaming, free, or available to rent right now. Updated live, so it never goes stale.">
+<meta name="theme-color" content="#0d0a14">
+
+<!-- Social sharing. Replace the og:image URL after you add public/og.png (1200x630). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Where to Watch the 90s">
+<meta property="og:title" content="Where to Watch the 90s">
+<meta property="og:description" content="Search any 90s or 2000s movie or show and see where it's streaming right now.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="scanlines" aria-hidden="true"></div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">▶</span>
+      <span class="brand-text">
+        <span class="brand-line1">Where to Watch</span>
+        <span class="brand-line2">The 90s</span>
+      </span>
+    </a>
+    <p class="brand-tag">Streaming, free, or rent &mdash; checked live.</p>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ---------------------------------------------------------------- Search -->
+  <section class="hero wrap">
+    <h1 class="hero-title">Where can I watch it?</h1>
+    <p class="hero-sub">
+      Type any movie or show from the 90s or 2000s. We&rsquo;ll tell you which services
+      have it right now &mdash; no more guessing, no more out-of-date lists.
+    </p>
+
+    <form class="search" id="search-form" role="search" autocomplete="off">
+      <label class="sr-only" for="search-input">Search for a movie or TV show</label>
+      <div class="search-field">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="search-input"
+          name="q"
+          type="search"
+          class="search-input"
+          placeholder="Hocus Pocus, Rugrats, Space Jam…"
+          enterkeyhint="search"
+          maxlength="120">
+        <button type="button" class="search-clear" id="search-clear" hidden aria-label="Clear search">×</button>
+      </div>
+      <button type="submit" class="btn btn-primary">Find it</button>
+      <button type="button" class="btn btn-ghost" id="random-btn" title="Show me a random pick">🎲 Surprise me</button>
+    </form>
+
+    <!-- ------------------------------------------------------------- Filters -->
+    <div class="filters">
+      <div class="filter-group" role="group" aria-label="Decade">
+        <span class="filter-label">Decade</span>
+        <div class="pills" id="decade-pills"></div>
+      </div>
+
+      <div class="filter-group" role="group" aria-label="Type">
+        <span class="filter-label">Type</span>
+        <div class="pills" id="type-pills">
+          <button type="button" class="pill" data-type="all">All</button>
+          <button type="button" class="pill" data-type="movie">Movies</button>
+          <button type="button" class="pill" data-type="tv">TV</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="region-select">Country</label>
+        <select id="region-select" class="select">
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="GB">United Kingdom</option>
+          <option value="AU">Australia</option>
+          <option value="IE">Ireland</option>
+          <option value="NZ">New Zealand</option>
+          <option value="DE">Germany</option>
+          <option value="FR">France</option>
+          <option value="ES">Spain</option>
+          <option value="IT">Italy</option>
+          <option value="MX">Mexico</option>
+          <option value="BR">Brazil</option>
+          <option value="IN">India</option>
+          <option value="NG">Nigeria</option>
+          <option value="ZA">South Africa</option>
+          <option value="PH">Philippines</option>
+          <option value="JP">Japan</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- --------------------------------------------------------------- Results -->
+  <section class="wrap" id="results-region" aria-live="polite" aria-busy="false">
+    <div id="notice" class="notice" hidden></div>
+    <div id="results"></div>
+  </section>
+
+  <!-- ------------------------------------------------------------ Newsletter -->
+  <section class="wrap newsletter" id="newsletter" hidden>
+    <div class="newsletter-card">
+      <h2 class="newsletter-title">Get the good stuff every week</h2>
+      <p class="newsletter-copy">
+        One email a week: what just landed on streaming, what&rsquo;s about to leave,
+        and the nostalgia you forgot you missed.
+      </p>
+      <form class="newsletter-form" id="newsletter-form">
+        <label class="sr-only" for="email-input">Email address</label>
+        <input
+          id="email-input"
+          type="email"
+          class="newsletter-input"
+          placeholder="you@email.com"
+          required
+          maxlength="254"
+          autocomplete="email">
+        <button type="submit" class="btn btn-primary" id="newsletter-submit">Subscribe</button>
+      </form>
+      <p class="newsletter-status" id="newsletter-status" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<!-- ------------------------------------------------------------------- Modal -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <button type="button" class="modal-close" id="modal-close" aria-label="Close">×</button>
+    <div class="modal-body" id="modal-body">
+      <h2 id="modal-title" class="sr-only">Title details</h2>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------ Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <!-- Amazon requires this disclosure. Keep it visible. -->
+    <p class="disclosure" id="affiliate-disclosure" hidden>
+      As an Amazon Associate we earn from qualifying purchases. Links to physical
+      copies may earn us a commission at no extra cost to you.
+    </p>
+
+    <!-- Attribution below is required by TMDB's terms of use. Do not remove. -->
+    <p class="attribution">
+      This product uses the TMDB API but is not endorsed or certified by TMDB.
+      Streaming availability data is provided by JustWatch via TMDB.
+    </p>
+
+    <p class="footer-note">
+      Availability changes constantly and varies by country. Always double-check
+      on the service before you settle in.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/app.js" type="module"></script>
+</body>
+</html>

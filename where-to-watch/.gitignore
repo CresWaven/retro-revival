@@ -1,0 +1,21 @@
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel
+
+# Dependencies (this project has none, but just in case)
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
