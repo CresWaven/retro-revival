@@ -1,0 +1,107 @@
+<!-- THE MILLENNIAL PLUG — Windows 98 window cards (3-up)
+     "What's inside" section. One card per recurring newsletter segment.
+     Naming them like executables (REWIND.EXE) makes the newsletter feel like a
+     format with structure rather than a blog with posts. -->
+<div class="tmp-win-root">
+  <style>
+    .tmp-win-root{
+      --paper:#F5F1E8; --paper-2:#EAE3D2; --ink:#14131A; --ink-soft:#55525F;
+      --blue:#2340C8; --blue-dark:#16268C; --red:#E8452C; --yellow:#FFC93C; --teal:#12A594;
+    }
+    .tmp-win-root .tmp-grid{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    }
+    @media(max-width:900px){
+      .tmp-win-root .tmp-grid{grid-template-columns:1fr}
+    }
+    .tmp-win-root .tmp-win{
+      background:var(--paper); border:2px solid var(--ink); border-radius:4px;
+      box-shadow:7px 7px 0 var(--ink); overflow:hidden;
+    }
+    .tmp-win-root .tmp-bar{
+      display:flex; align-items:center; gap:10px;
+      background:linear-gradient(90deg,var(--blue) 0%,var(--blue-dark) 100%);
+      border-bottom:2px solid var(--ink); padding:8px 10px;
+    }
+    .tmp-win-root .tmp-dot{
+      width:11px; height:11px; border:1.5px solid rgba(255,255,255,.85);
+      border-radius:2px; flex:none;
+    }
+    .tmp-win-root .tmp-title{
+      font-family:'Space Mono','Courier New',monospace;
+      font-size:12px; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:#fff;
+    }
+    .tmp-win-root .tmp-ctrls{margin-left:auto; display:flex; gap:5px}
+    .tmp-win-root .tmp-ctrl{
+      width:18px; height:16px; background:var(--paper-2);
+      border:1.5px solid var(--ink); border-radius:2px;
+      display:grid; place-items:center; line-height:1; color:var(--ink);
+    }
+    /* Window controls drawn in CSS rather than typed as glyphs.
+       U+9633 and U+2715 fall back to tofu boxes in a lot of font stacks —
+       shapes always render. */
+    .tmp-win-root .tmp-ctrl::before{content:''; display:block}
+    .tmp-win-root .tmp-ctrl--min::before{width:8px; height:2px; background:var(--ink)}
+    .tmp-win-root .tmp-ctrl--max::before{width:8px; height:8px; border:1.5px solid var(--ink)}
+    .tmp-win-root .tmp-ctrl--close::before{
+      content:'\00D7';                      /* × U+00D7 — near-universal coverage */
+      font-family:'Inter',system-ui,sans-serif; font-size:13px; font-weight:700;
+      line-height:1; margin-top:-1px;
+    }
+    .tmp-win-root .tmp-body{padding:28px}
+    .tmp-win-root .tmp-icon{font-size:30px; line-height:1; margin-bottom:14px}
+    .tmp-win-root .tmp-h{
+      font-family:'Anton','Arial Black',sans-serif; font-weight:400;
+      font-size:22px; line-height:1.14; letter-spacing:-.01em;
+      text-transform:uppercase; margin:0 0 12px; color:var(--ink);
+    }
+    .tmp-win-root .tmp-p{
+      font-family:'Inter',system-ui,sans-serif; font-size:16px; line-height:1.6;
+      color:var(--ink-soft); margin:0;
+    }
+  </style>
+
+  <div class="tmp-grid">
+
+    <div class="tmp-win">
+      <div class="tmp-bar">
+        <span class="tmp-dot" style="background:#FFC93C"></span>
+        <span class="tmp-title">Rewind.exe</span>
+        <span class="tmp-ctrls"><span class="tmp-ctrl tmp-ctrl--min"></span><span class="tmp-ctrl tmp-ctrl--max"></span><span class="tmp-ctrl tmp-ctrl--close"></span></span>
+      </div>
+      <div class="tmp-body">
+        <div class="tmp-icon">📼</div>
+        <h3 class="tmp-h">The Rewind</h3>
+        <p class="tmp-p">One deep-dive on a thing you forgot you loved — with the receipts, photos, and the story behind why it disappeared.</p>
+      </div>
+    </div>
+
+    <div class="tmp-win">
+      <div class="tmp-bar">
+        <span class="tmp-dot" style="background:#12A594"></span>
+        <span class="tmp-title">Snack_Bar.exe</span>
+        <span class="tmp-ctrls"><span class="tmp-ctrl tmp-ctrl--min"></span><span class="tmp-ctrl tmp-ctrl--max"></span><span class="tmp-ctrl tmp-ctrl--close"></span></span>
+      </div>
+      <div class="tmp-body">
+        <div class="tmp-icon">🍬</div>
+        <h3 class="tmp-h">The Snack Bar</h3>
+        <p class="tmp-p">Five fast hits: a discontinued snack, a forgotten toy, a commercial jingle, a fashion crime, and one "no way that was the same year."</p>
+      </div>
+    </div>
+
+    <div class="tmp-win">
+      <div class="tmp-bar">
+        <span class="tmp-dot" style="background:#E8452C"></span>
+        <span class="tmp-title">Mixtape.exe</span>
+        <span class="tmp-ctrls"><span class="tmp-ctrl tmp-ctrl--min"></span><span class="tmp-ctrl tmp-ctrl--max"></span><span class="tmp-ctrl tmp-ctrl--close"></span></span>
+      </div>
+      <div class="tmp-body">
+        <div class="tmp-icon">💿</div>
+        <h3 class="tmp-h">The Mixtape</h3>
+        <p class="tmp-p">Three tracks that instantly teleport you back, plus the running Spotify playlist that 40,000 readers have on repeat.</p>
+      </div>
+    </div>
+
+  </div>
+</div>

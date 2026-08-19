@@ -1,0 +1,40 @@
+<!-- THE MILLENNIAL PLUG — Stats band
+     Place directly below the hero. This borrows credibility from your social
+     following, which is the fastest way to answer "is this legit?"
+     Keep the numbers current and honest — inflated stats are the one thing that
+     will burn you with a sponsor doing diligence. -->
+<div class="tmp-stats-root">
+  <style>
+    .tmp-stats-root{
+      --paper-2:#EAE3D2; --ink:#14131A; --ink-soft:#55525F;
+      background:var(--paper-2);
+      border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+      padding:34px 0;
+    }
+    .tmp-stats-root .tmp-grid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+      text-align:center; max-width:1140px; margin:0 auto; padding:0 24px;
+    }
+    @media(max-width:720px){
+      .tmp-stats-root .tmp-grid{grid-template-columns:repeat(2,1fr); gap:26px}
+    }
+    .tmp-stats-root .tmp-num{
+      display:block;
+      font-family:'Anton','Arial Black',sans-serif; font-weight:400;
+      font-size:clamp(30px,4.6vw,46px); line-height:1; letter-spacing:-.01em;
+      color:var(--ink); margin-bottom:6px;
+    }
+    .tmp-stats-root .tmp-cap{
+      font-family:'Space Mono','Courier New',monospace;
+      font-size:11px; font-weight:700; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-soft);
+    }
+  </style>
+
+  <div class="tmp-grid">
+    <div><span class="tmp-num">1.2M</span><span class="tmp-cap">Instagram</span></div>
+    <div><span class="tmp-num">1.5M+</span><span class="tmp-cap">Total Following</span></div>
+    <div><span class="tmp-num">48%</span><span class="tmp-cap">Open Rate</span></div>
+    <div><span class="tmp-num">5 min</span><span class="tmp-cap">Read Time</span></div>
+  </div>
+</div>
