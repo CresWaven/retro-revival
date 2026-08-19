@@ -1,0 +1,32 @@
+<!-- THE MILLENNIAL PLUG — Scrolling ticker bar
+     Place at the very top of the homepage, above the nav.
+     Edit the marquee text in BOTH spans (the duplicate creates the seamless loop). -->
+<div class="tmp-ticker-root">
+  <style>
+    .tmp-ticker-root{
+      --paper:#F5F1E8; --ink:#14131A; --yellow:#FFC93C;
+      background:var(--ink); border-bottom:2px solid var(--ink);
+      overflow:hidden; padding:9px 0; margin:0;
+    }
+    .tmp-ticker-root .tmp-track{
+      display:flex; gap:44px; white-space:nowrap; width:max-content;
+      animation:tmpSlide 34s linear infinite;
+    }
+    .tmp-ticker-root .tmp-item{
+      font-family:'Space Mono','Courier New',monospace;
+      font-size:12px; font-weight:700; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--paper);
+    }
+    .tmp-ticker-root .tmp-item b{color:var(--yellow)}
+    @keyframes tmpSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* Marquees can trigger motion sickness — respect the OS setting. */
+    @media (prefers-reduced-motion:reduce){
+      .tmp-ticker-root .tmp-track{animation:none}
+    }
+  </style>
+
+  <div class="tmp-track">
+    <span class="tmp-item">// <b>NEW ISSUE EVERY FRIDAY</b> // 1.5M+ MILLENNIALS PLUGGED IN // FREE FOREVER // NO SPAM, EVER // AS SEEN ON INSTAGRAM, TIKTOK &amp; FACEBOOK //</span>
+    <span class="tmp-item">// <b>NEW ISSUE EVERY FRIDAY</b> // 1.5M+ MILLENNIALS PLUGGED IN // FREE FOREVER // NO SPAM, EVER // AS SEEN ON INSTAGRAM, TIKTOK &amp; FACEBOOK //</span>
+  </div>
+</div>

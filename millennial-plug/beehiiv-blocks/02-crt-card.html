@@ -1,0 +1,56 @@
+<!-- THE MILLENNIAL PLUG — CRT terminal card
+     Hero, right column. Put a native Beehiiv subscribe form in the left column.
+     Swap the list items each week for the actual contents of the upcoming issue —
+     showing the real product converts better than describing it. -->
+<div class="tmp-crt-root">
+  <style>
+    .tmp-crt-root{
+      --paper:#F5F1E8; --ink:#14131A; --yellow:#FFC93C; --teal:#12A594;
+    }
+    .tmp-crt-root .tmp-crt{
+      position:relative; background:var(--ink);
+      border:2px solid var(--ink); border-radius:4px;
+      box-shadow:7px 7px 0 var(--ink);
+      padding:22px; overflow:hidden;
+    }
+    /* Scanline overlay — the detail that makes it read as a CRT and not a black box. */
+    .tmp-crt-root .tmp-crt::after{
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);
+    }
+    .tmp-crt-root .tmp-label{
+      font-family:'Space Mono','Courier New',monospace;
+      font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--teal); margin:0 0 14px;
+      display:flex; align-items:center; gap:7px;
+    }
+    /* Terminal bar drawn in CSS — the ▌ glyph (U+258C) tofus out in many stacks. */
+    .tmp-crt-root .tmp-label::before{
+      content:''; width:4px; height:12px; background:var(--teal); flex:none;
+    }
+    .tmp-crt-root .tmp-line{
+      font-family:'Space Mono','Courier New',monospace;
+      font-size:13px; color:var(--paper); margin:0 0 9px; line-height:1.5;
+    }
+    .tmp-crt-root .tmp-line b{color:var(--yellow)}
+    .tmp-crt-root .tmp-prompt{margin-top:16px; color:var(--teal)}
+    .tmp-crt-root .tmp-cursor{
+      display:inline-block; width:8px; height:15px; background:var(--teal);
+      vertical-align:-2px; animation:tmpBlink 1.1s step-end infinite;
+    }
+    @keyframes tmpBlink{50%{opacity:0}}
+    @media (prefers-reduced-motion:reduce){
+      .tmp-crt-root .tmp-cursor{animation:none}
+    }
+  </style>
+
+  <div class="tmp-crt">
+    <p class="tmp-label">C:\ THIS_WEEK.TXT</p>
+    <p class="tmp-line"><b>&gt;</b> The Dunkaroos discontinuation timeline</p>
+    <p class="tmp-line"><b>&gt;</b> Why every 90s bedroom had the same lava lamp</p>
+    <p class="tmp-line"><b>&gt;</b> Ranking all 14 Tamagotchi deaths</p>
+    <p class="tmp-line"><b>&gt;</b> The Blockbuster Friday night ritual, remembered</p>
+    <p class="tmp-line"><b>&gt;</b> Reader poll: best Saturday morning cartoon</p>
+    <p class="tmp-line tmp-prompt">&gt; _<span class="tmp-cursor"></span></p>
+  </div>
+</div>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Millennial Plug 🔌 — Homepage Design Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE MILLENNIAL PLUG — DESIGN TOKENS
+   Change a value here and it updates everywhere.
+   ============================================================ */
+:root{
+  /* --- Color: warm newsprint base, one primary, three accents --- */
+  --paper:      #F5F1E8;   /* warm off-white. NOT pure white. this is 80% of the "expensive" feel */
+  --paper-2:    #EAE3D2;   /* subtle band / alternating section */
+  --ink:        #14131A;   /* near-black. never use #000 */
+  --ink-soft:   #55525F;   /* secondary text */
+  --blue:       #2340C8;   /* PRIMARY. Win98 desktop blue, deepened for contrast */
+  --blue-dark:  #16268C;
+  --red:        #E8452C;   /* accent: urgency, links, hover */
+  --yellow:     #FFC93C;   /* accent: highlighter only. use least */
+  --teal:       #12A594;   /* accent: tags / secondary badges */
+
+  /* --- Structure --- */
+  --line:       2px solid var(--ink);
+  --pop:        4px 4px 0 var(--ink);      /* hard offset shadow, NO blur = retro + intentional */
+  --pop-lg:     7px 7px 0 var(--ink);
+  --radius:     4px;                        /* keep tiny. 90s UI was not rounded */
+  --max:        1140px;                     /* page container */
+  --read:       680px;                      /* reading column — never wider */
+
+  /* --- Type --- */
+  --display: 'Anton', 'Arial Black', sans-serif;   /* headlines ONLY */
+  --mono:    'Space Mono', 'Courier New', monospace; /* labels, buttons, meta ONLY */
+  --body:    'Inter', system-ui, sans-serif;        /* all reading text */
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* ---------- reusable primitives ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--blue);
+  margin:0 0 14px;
+}
+.eyebrow--light{color:rgba(255,255,255,.75)}
+/* Anton has very tall caps — line-height below ~1.02 clips the first line.
+   Keep 1.04 and pull the block up with a negative top margin instead. */
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.01em;line-height:1.04;margin:0 0 18px;text-transform:uppercase}
+h1{font-size:clamp(40px,7vw,76px)}
+h2{font-size:clamp(31px,4.4vw,50px)}
+h3{font-size:22px;line-height:1.14}
+
+/* Arrow glyph: monospace fallbacks often lack "→". Force a broad-coverage stack. */
+.arw{font-family:'Inter',system-ui,'Segoe UI Symbol','DejaVu Sans',sans-serif;font-weight:700}
+p{margin:0 0 18px}
+.lede{font-size:20px;line-height:1.55;color:var(--ink-soft);max-width:52ch}
+
+/* Chunky beveled retro button */
+.btn{
+  display:inline-block; font-family:var(--mono); font-weight:700; font-size:14px;
+  letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
+  padding:15px 30px; border:var(--line); border-radius:var(--radius);
+  background:var(--yellow); color:var(--ink); box-shadow:var(--pop);
+  cursor:pointer; transition:transform .08s ease, box-shadow .08s ease;
+}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.btn--blue{background:var(--blue);color:#fff}
+.btn--red{background:var(--red);color:#fff}
+.btn--ghost{background:transparent}
+
+/* ---------- Win98 window chrome: the nostalgia lives HERE, not in body copy ---------- */
+.win{
+  background:var(--paper); border:var(--line); border-radius:var(--radius);
+  box-shadow:var(--pop-lg); overflow:hidden;
+}
+.win__bar{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(90deg,var(--blue) 0%,var(--blue-dark) 100%);
+  border-bottom:var(--line); padding:8px 10px;
+}
+.win__dot{width:11px;height:11px;border:1.5px solid rgba(255,255,255,.85);border-radius:2px;flex:none}
+.win__title{
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:#fff;margin-left:2px;
+}
+.win__ctrls{margin-left:auto;display:flex;gap:5px}
+.win__ctrl{
+  width:18px;height:16px;background:var(--paper-2);border:1.5px solid var(--ink);
+  border-radius:2px;display:grid;place-items:center;line-height:1;
+}
+/* Controls drawn in CSS — typed glyphs like □ and ✕ tofu out in many font stacks. */
+.win__ctrl::before{content:'';display:block}
+.win__ctrl--min::before{width:8px;height:2px;background:var(--ink)}
+.win__ctrl--max::before{width:8px;height:8px;border:1.5px solid var(--ink)}
+.win__ctrl--close::before{content:'\00D7';font-family:var(--body);font-size:13px;font-weight:700;line-height:1;margin-top:-1px}
+.win__body{padding:clamp(24px,4vw,46px)}
+
+/* ---------- 1. TICKER — pure 90s, tastefully contained to one thin strip ---------- */
+.ticker{background:var(--ink);color:var(--paper);border-bottom:var(--line);overflow:hidden;padding:9px 0}
+.ticker__track{display:flex;gap:44px;white-space:nowrap;width:max-content;animation:slide 34s linear infinite}
+.ticker span{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.ticker b{color:var(--yellow)}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker__track{animation:none}}
+
+/* ---------- 2. NAV ---------- */
+.nav{border-bottom:var(--line);background:var(--paper)}
+.nav__in{display:flex;align-items:center;gap:28px;padding:16px 24px;max-width:var(--max);margin:0 auto}
+.logo{font-family:var(--display);font-size:23px;text-transform:uppercase;letter-spacing:-.01em;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo em{font-style:normal;color:var(--blue)}
+.nav__links{display:flex;gap:26px;margin-left:auto}
+.nav__links a{
+  font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent;
+}
+.nav__links a:hover{border-bottom-color:var(--red);color:var(--red)}
+.nav__cta{margin-left:6px}
+@media(max-width:860px){.nav__links{display:none}}
+
+/* ---------- 3. HERO ---------- */
+.hero{padding:clamp(44px,6vw,80px) 0 clamp(36px,5vw,64px)}
+.hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
+@media(max-width:940px){.hero__grid{grid-template-columns:1fr;gap:34px}}
+.hero h1 mark{background:var(--yellow);padding:0 .12em;box-decoration-break:clone}
+
+/* inline email capture */
+.form{display:flex;gap:12px;margin:26px 0 18px;max-width:520px}
+.form input{
+  flex:1;min-width:0;font-family:var(--body);font-size:16px;padding:15px 16px;
+  border:var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--pop);
+}
+.form input::placeholder{color:#8B8896}
+.form input:focus{outline:3px solid var(--blue);outline-offset:2px}
+@media(max-width:560px){.form{flex-direction:column}}
+.microcopy{font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:.04em}
+
+/* social proof row — your single strongest asset */
+.proof{display:flex;align-items:center;gap:14px;margin-top:26px;flex-wrap:wrap}
+.avatars{display:flex}
+.avatars i{
+  width:36px;height:36px;border-radius:50%;border:2px solid var(--ink);margin-left:-10px;
+  display:grid;place-items:center;font-family:var(--mono);font-size:11px;font-weight:700;font-style:normal;
+}
+.avatars i:first-child{margin-left:0}
+.proof__txt{font-size:15px;font-weight:600;line-height:1.35}
+.proof__txt s{display:block;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink-soft);text-decoration:none;letter-spacing:.04em}
+/* ★ (U+2605) is well supported, but pin a symbol-capable stack so it can't tofu. */
+.stars{color:var(--red);letter-spacing:2px;font-family:'Inter',system-ui,'Segoe UI Symbol','Apple Symbols','DejaVu Sans',sans-serif}
+
+/* hero side card: CRT screen */
+.crt{position:relative;background:var(--ink);border:var(--line);border-radius:var(--radius);box-shadow:var(--pop-lg);padding:22px;overflow:hidden}
+.crt::after{ /* scanlines */
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);
+}
+.crt__label{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.crt__label::before{content:'';width:4px;height:12px;background:var(--teal);flex:none}
+.crt__line{font-family:var(--mono);font-size:13px;color:var(--paper);margin-bottom:9px;line-height:1.5}
+.crt__line b{color:var(--yellow)}
+.cursor{display:inline-block;width:8px;height:15px;background:var(--teal);vertical-align:-2px;animation:blink 1.1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none}}
+
+/* ---------- perforated divider (Milk Road milk-carton trick) ---------- */
+.perf{height:0;border:0;border-top:3px dashed var(--ink);opacity:.28;margin:0}
+
+/* ---------- 4. PLATFORM / STATS BAR ---------- */
+.band{background:var(--paper-2);border-top:var(--line);border-bottom:var(--line);padding:34px 0}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+@media(max-width:720px){.statgrid{grid-template-columns:repeat(2,1fr);gap:26px}}
+.stat b{display:block;font-family:var(--display);font-size:clamp(30px,4.6vw,46px);line-height:1;letter-spacing:-.01em}
+.stat span{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* ---------- 5. SECTIONS ---------- */
+.sec{padding:clamp(56px,7vw,92px) 0}
+.sec__head{max-width:var(--read);margin-bottom:44px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.cards{grid-template-columns:1fr}}
+.card__icon{font-size:30px;line-height:1;margin-bottom:14px}
+.card p{font-size:16px;color:var(--ink-soft);margin:0}
+
+/* post cards */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.posts{grid-template-columns:1fr}}
+.post{background:#fff;border:var(--line);border-radius:var(--radius);box-shadow:var(--pop);overflow:hidden;text-decoration:none;transition:transform .1s ease,box-shadow .1s ease;display:flex;flex-direction:column}
+.post:hover{transform:translate(-2px,-2px);box-shadow:var(--pop-lg)}
+.post__img{aspect-ratio:16/9;border-bottom:var(--line);display:grid;place-items:center;font-family:var(--display);font-size:34px;color:rgba(20,19,26,.22);text-transform:uppercase}
+.post__in{padding:20px;display:flex;flex-direction:column;flex:1}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--teal);color:#fff;border:1.5px solid var(--ink);padding:3px 8px;border-radius:2px;margin-bottom:12px;align-self:flex-start}
+.tag--red{background:var(--red)}
+.tag--yellow{background:var(--yellow);color:var(--ink)}
+.post h3{font-size:19px;margin-bottom:10px}
+.post__meta{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* testimonials from real IG comments */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.quotes{grid-template-columns:1fr}}
+.quote{background:#fff;border:var(--line);border-radius:var(--radius);box-shadow:var(--pop);padding:24px}
+.quote p{font-size:16px;margin:0 0 16px}
+.quote footer{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-soft)}
+.quote footer i{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:11px;flex:none}
+
+/* sponsor strip */
+.sponsor{background:var(--blue);color:#fff;border-top:var(--line);border-bottom:var(--line);padding:clamp(44px,6vw,70px) 0}
+.sponsor__in{display:flex;align-items:center;gap:34px;flex-wrap:wrap}
+.sponsor h2{color:#fff;margin-bottom:12px}
+.sponsor p{color:rgba(255,255,255,.82);max-width:46ch;margin:0}
+.sponsor__cta{margin-left:auto}
+@media(max-width:820px){.sponsor__cta{margin-left:0}}
+
+/* final CTA */
+.final{padding:clamp(56px,7vw,96px) 0;text-align:center}
+.final .form{margin-left:auto;margin-right:auto}
+.final .lede{margin-left:auto;margin-right:auto}
+
+/* ---------- 6. FOOTER — legal links are a legitimacy signal ---------- */
+.foot{background:var(--ink);color:var(--paper);padding:56px 0 30px}
+.foot__grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
+@media(max-width:820px){.foot__grid{grid-template-columns:1fr 1fr}}
+.foot h4{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin:0 0 16px}
+.foot ul{list-style:none;padding:0;margin:0}
+.foot li{margin-bottom:10px}
+.foot a{font-size:15px;color:rgba(245,241,232,.78);text-decoration:none}
+.foot a:hover{color:var(--yellow)}
+.foot .logo{color:var(--paper);font-size:26px}
+.foot .logo em{color:var(--yellow)}
+.foot__blurb{font-size:15px;color:rgba(245,241,232,.62);max-width:34ch;margin:14px 0 20px}
+.socials{display:flex;gap:9px}
+.socials a{width:38px;height:38px;border:2px solid rgba(245,241,232,.3);border-radius:var(--radius);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700}
+.socials a:hover{border-color:var(--yellow);background:rgba(255,201,60,.1)}
+.foot__base{border-top:1px solid rgba(245,241,232,.16);margin-top:44px;padding-top:22px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.foot__base p{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:rgba(245,241,232,.5);margin:0}
+.foot__base .egg{margin-left:auto;color:rgba(245,241,232,.34)}
+
+/* mockup annotation chrome — DELETE when building for real */
+.note{background:var(--red);color:#fff;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="note">↓ Homepage design mockup — section labels marked in the code comments ↓</div>
+
+<!-- ============ 1. TICKER ============ -->
+<div class="ticker">
+  <div class="ticker__track">
+    <span>// <b>NEW ISSUE EVERY FRIDAY</b> // 1.5M+ MILLENNIALS PLUGGED IN // FREE FOREVER // NO SPAM, EVER // AS SEEN ON INSTAGRAM, TIKTOK &amp; FACEBOOK //</span>
+    <span>// <b>NEW ISSUE EVERY FRIDAY</b> // 1.5M+ MILLENNIALS PLUGGED IN // FREE FOREVER // NO SPAM, EVER // AS SEEN ON INSTAGRAM, TIKTOK &amp; FACEBOOK //</span>
+  </div>
+</div>
+
+<!-- ============ 2. NAV ============ -->
+<nav class="nav">
+  <div class="nav__in">
+    <a href="#" class="logo">THE MILLENNIAL <em>PLUG</em> 🔌</a>
+    <div class="nav__links">
+      <a href="#">Archive</a>
+      <a href="#">About</a>
+      <a href="#">Advertise</a>
+      <a href="#">Shop</a>
+    </div>
+    <a href="#" class="btn btn--blue nav__cta">Subscribe Free</a>
+  </div>
+</nav>
+
+<!-- ============ 3. HERO ============ -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <p class="eyebrow">Weekly Newsletter · Est. 2026 · Issue #024</p>
+      <h1>Your childhood, <mark>delivered</mark> every Friday.</h1>
+      <p class="lede">The 90s and Y2K nostalgia you actually miss — the toys, the shows, the snacks, the dial-up screech — curated into one five-minute read. No doom, no algorithm. Just the good stuff.</p>
+
+      <form class="form" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address">
+        <button class="btn btn--red" type="submit">Plug Me In <span class="arw">&rarr;</span></button>
+      </form>
+      <p class="microcopy">Free forever. Unsubscribe in one click.</p>
+
+      <div class="proof">
+        <div class="avatars">
+          <i style="background:var(--yellow)">JM</i>
+          <i style="background:var(--teal);color:#fff">AR</i>
+          <i style="background:var(--red);color:#fff">TK</i>
+          <i style="background:var(--blue);color:#fff">SL</i>
+          <i style="background:var(--paper-2)">+1M</i>
+        </div>
+        <p class="proof__txt">
+          <span class="stars">★★★★★</span> Joined by <strong>1.5M+ millennials</strong>
+          <s>Across Instagram, TikTok &amp; Facebook</s>
+        </p>
+      </div>
+    </div>
+
+    <!-- CRT terminal card: "what's inside" without a boring bullet list -->
+    <div class="crt">
+      <p class="crt__label">C:\ THIS_WEEK.TXT</p>
+      <p class="crt__line"><b>&gt;</b> The Dunkaroos discontinuation timeline</p>
+      <p class="crt__line"><b>&gt;</b> Why every 90s bedroom had the same lava lamp</p>
+      <p class="crt__line"><b>&gt;</b> Ranking all 14 Tamagotchi deaths</p>
+      <p class="crt__line"><b>&gt;</b> The Blockbuster Friday night ritual, remembered</p>
+      <p class="crt__line"><b>&gt;</b> Reader poll: best Saturday morning cartoon</p>
+      <p class="crt__line" style="margin-top:16px;color:var(--teal)">&gt; _<span class="cursor"></span></p>
+    </div>
+  </div>
+</section>
+
+<hr class="perf">
+
+<!-- ============ 4. STATS BAR — borrow credibility from your socials ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="statgrid">
+      <div class="stat"><b>1.2M</b><span>Instagram</span></div>
+      <div class="stat"><b>1.5M+</b><span>Total Following</span></div>
+      <div class="stat"><b>48%</b><span>Open Rate</span></div>
+      <div class="stat"><b>5 min</b><span>Read Time</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. WHAT YOU GET ============ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">What's inside</p>
+      <h2>Five minutes. Zero doomscrolling.</h2>
+      <p class="lede">Every issue follows the same format, so you always know what you're getting.</p>
+    </div>
+
+    <div class="cards">
+      <article class="win">
+        <div class="win__bar">
+          <span class="win__dot" style="background:var(--yellow)"></span>
+          <span class="win__title">Rewind.exe</span>
+          <span class="win__ctrls"><span class="win__ctrl win__ctrl--min"></span><span class="win__ctrl win__ctrl--max"></span><span class="win__ctrl win__ctrl--close"></span></span>
+        </div>
+        <div class="win__body">
+          <div class="card__icon">📼</div>
+          <h3>The Rewind</h3>
+          <p>One deep-dive on a thing you forgot you loved — with the receipts, photos, and the story behind why it disappeared.</p>
+        </div>
+      </article>
+
+      <article class="win">
+        <div class="win__bar">
+          <span class="win__dot" style="background:var(--teal)"></span>
+          <span class="win__title">Snack_Bar.exe</span>
+          <span class="win__ctrls"><span class="win__ctrl win__ctrl--min"></span><span class="win__ctrl win__ctrl--max"></span><span class="win__ctrl win__ctrl--close"></span></span>
+        </div>
+        <div class="win__body">
+          <div class="card__icon">🍬</div>
+          <h3>The Snack Bar</h3>
+          <p>Five fast hits: a discontinued snack, a forgotten toy, a commercial jingle, a fashion crime, and one "no way that was the same year."</p>
+        </div>
+      </article>
+
+      <article class="win">
+        <div class="win__bar">
+          <span class="win__dot" style="background:var(--red)"></span>
+          <span class="win__title">Mixtape.exe</span>
+          <span class="win__ctrls"><span class="win__ctrl win__ctrl--min"></span><span class="win__ctrl win__ctrl--max"></span><span class="win__ctrl win__ctrl--close"></span></span>
+        </div>
+        <div class="win__body">
+          <div class="card__icon">💿</div>
+          <h3>The Mixtape</h3>
+          <p>Three tracks that instantly teleport you back, plus the running Spotify playlist that 40,000 readers have on repeat.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<hr class="perf">
+
+<!-- ============ 6. LATEST ISSUES — proves you're a real publication ============ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">From the archive</p>
+      <h2>Catch up on recent issues</h2>
+    </div>
+
+    <div class="posts">
+      <a href="#" class="post">
+        <div class="post__img" style="background:var(--yellow)">VHS</div>
+        <div class="post__in">
+          <span class="tag tag--red">The Rewind</span>
+          <h3>The Blockbuster Friday night ritual, remembered</h3>
+          <p class="post__meta">Aug 14, 2026 · 5 min</p>
+        </div>
+      </a>
+      <a href="#" class="post">
+        <div class="post__img" style="background:var(--teal)">Y2K</div>
+        <div class="post__in">
+          <span class="tag tag--yellow">Snack Bar</span>
+          <h3>Every snack we lost between 1994 and 2004</h3>
+          <p class="post__meta">Aug 7, 2026 · 4 min</p>
+        </div>
+      </a>
+      <a href="#" class="post">
+        <div class="post__img" style="background:var(--blue);color:rgba(255,255,255,.3)">TV</div>
+        <div class="post__in">
+          <span class="tag">The Mixtape</span>
+          <h3>Saturday morning cartoons, ranked by theme song</h3>
+          <p class="post__meta">Jul 31, 2026 · 6 min</p>
+        </div>
+      </a>
+    </div>
+
+    <p style="margin-top:34px"><a href="#" class="btn btn--ghost">Browse all issues <span class="arw">&rarr;</span></a></p>
+  </div>
+</section>
+
+<!-- ============ 7. TESTIMONIALS — pull real comments off your IG ============ -->
+<section class="sec" style="background:var(--paper-2);border-top:var(--line);border-bottom:var(--line)">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Reader mail</p>
+      <h2>What 1.5M people keep telling us</h2>
+    </div>
+    <div class="quotes">
+      <blockquote class="quote">
+        <p>"I genuinely stop what I'm doing when this hits my inbox on Friday. It's the only newsletter I actually read start to finish."</p>
+        <footer><i style="background:var(--yellow)">DM</i> @dana.m · Instagram</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <p>"Sent the Dunkaroos issue to my whole group chat and we spiraled for three hours. Worth it."</p>
+        <footer><i style="background:var(--teal);color:#fff">JR</i> @jrod_92 · TikTok</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <p>"Finally something nostalgic that isn't just a reposted screenshot. You can tell someone actually researches this."</p>
+        <footer><i style="background:var(--red);color:#fff">KP</i> @kelly.p · Facebook</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. SPONSOR STRIP — signals "this is a business" ============ -->
+<section class="sponsor">
+  <div class="wrap sponsor__in">
+    <div>
+      <p class="eyebrow eyebrow--light">For brands</p>
+      <h2>Reach 1.5M nostalgic millennials</h2>
+      <p>Millennials with disposable income and a soft spot for the decade they grew up in. Get the media kit with audience demos, open rates, and sponsorship packages.</p>
+    </div>
+    <div class="sponsor__cta"><a href="#" class="btn">Get the media kit <span class="arw">&rarr;</span></a></div>
+  </div>
+</section>
+
+<!-- ============ 9. FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap">
+    <p class="eyebrow">Last call</p>
+    <h2>Don't make us send a<br>strongly worded fax.</h2>
+    <p class="lede">Join 1.5M+ millennials getting the good stuff every Friday.</p>
+    <form class="form" onsubmit="return false">
+      <input type="email" placeholder="you@email.com" aria-label="Email address">
+      <button class="btn btn--red" type="submit">Plug Me In <span class="arw">&rarr;</span></button>
+    </form>
+    <p class="microcopy">Free forever. Unsubscribe in one click.</p>
+  </div>
+</section>
+
+<!-- ============ 10. FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <a href="#" class="logo">THE MILLENNIAL <em>PLUG</em> 🔌</a>
+        <p class="foot__blurb">A weekly dose of 90s and Y2K nostalgia for the generation that lived it.</p>
+        <div class="socials">
+          <a href="#" title="Instagram">IG</a>
+          <a href="#" title="TikTok">TT</a>
+          <a href="#" title="Facebook">FB</a>
+          <a href="#" title="YouTube">YT</a>
+        </div>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <ul>
+          <li><a href="#">Latest issue</a></li>
+          <li><a href="#">Archive</a></li>
+          <li><a href="#">Subscribe</a></li>
+          <li><a href="#">Recommendations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Advertise</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of use</a></li>
+          <li><a href="#">Cookie policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <p>© 2026 The Millennial Plug. All rights reserved.</p>
+      <p class="egg">Best viewed in Netscape Navigator 4.0 ✦</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
