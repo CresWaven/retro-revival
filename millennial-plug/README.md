@@ -2,7 +2,7 @@
 
 A professional-but-nostalgic redesign for [The Millennial Plug](https://themillennialplug.beehiiv.com/), a 90s/Y2K nostalgia newsletter.
 
-### 👉 [View the live mockup](https://creswaven.github.io/millennial-plug-design/preview.html)
+### 👉 [View the live mockup](https://creswaven.github.io/retro-revival/millennial-plug/preview.html)
 
 ---
 
@@ -39,7 +39,7 @@ Never pure `#FFF` or pure `#000`. That one swap does most of the work.
 
 ## Start here
 
-1. Open the [live mockup](https://creswaven.github.io/millennial-plug-design/preview.html)
+1. Open the [live mockup](https://creswaven.github.io/retro-revival/millennial-plug/preview.html)
 2. Read `BRAND-SYSTEM.md` §4 for the homepage section order
 3. Use **native** Beehiiv blocks for anything that captures email — a hand-coded form has nothing to submit to and would silently lose signups. Use `beehiiv-blocks/` for the retro chrome only.
 4. Build the **Advertise** page. With 1.5M+ followers, that's the one with revenue attached.
