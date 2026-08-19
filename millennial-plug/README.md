@@ -1,6 +1,6 @@
 # The Millennial Plug 🔌 — Site Design
 
-A professional-but-nostalgic redesign for [The Millennial Plug](https://themillennialplug.beehiiv.com/), a 90s/Y2K nostalgia newsletter.
+A professional-but-nostalgic redesign for **The Millennial Plug**, a 90s/Y2K nostalgia newsletter backed by 1.5M+ social followers.
 
 ### 👉 [View the live mockup](https://creswaven.github.io/retro-revival/millennial-plug/preview.html)
 
